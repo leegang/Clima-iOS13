@@ -12,6 +12,7 @@ import UIKit
 
 protocol WeatherManagerDelegate {
     func didUpdateWeather(weather:WeatherData)
+    func didHandleError(error:Error)
 }
 
 
@@ -49,7 +50,7 @@ struct WeatherManger {
             let task = session.dataTask(with: url) { (data, urlRespone, error) in
                 // pass a closure to accept the data and error
                 if error != nil {
-                    print(error!)
+                    self.delegate?.didHandleError(error:error!)
                     return
                 }
                 if let weatherData = data {
@@ -68,14 +69,12 @@ struct WeatherManger {
             let temp = weatherDataJson["main","temp"].double
             let cod = weatherDataJson["weather",0,"id"].int
             let cityName = weatherDataJson["name"].string
-            let weatherDatavalue = WeatherData(temp: temp!,cityName:cityName!,cod:cod!)
+            let weatherDatavalue = WeatherData(temp: (temp ?? 12.2),cityName:(cityName ?? "error"),cod:(cod ?? 200))
             return weatherDatavalue
-            
-//
 //
         }
         catch{
-            print(error)
+            self.delegate?.didHandleError(error: error)
             return nil
         }
        
