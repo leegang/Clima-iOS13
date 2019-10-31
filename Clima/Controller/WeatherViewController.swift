@@ -25,18 +25,19 @@ class WeatherViewController: UIViewController,UITextFieldDelegate {
     }
     
     @IBAction func searchButtonPressed(_ sender: UIButton) {
-        cityLabel.text = searchTextField.text
+//        cityLabel.text = searchTextField.text
         searchTextField.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        cityLabel.text = searchTextField.text
+       
         searchTextField.endEditing(true)
         return true
     }
     
      func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
            if textField.text != "" {
+             cityLabel.text = searchTextField.text
                return true
            } else {
                textField.placeholder = "Type something"

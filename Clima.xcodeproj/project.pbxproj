@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		036A8627236AF0590057E4AA /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 036A8626236AF0590057E4AA /* SwiftyJSON */; };
 		84BFB3142369D91A0044161A /* WeatherManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BFB3132369D91A0044161A /* WeatherManger.swift */; };
 		ADAA27B1231BBFAF00365194 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA27B0231BBFAF00365194 /* AppDelegate.swift */; };
 		ADAA27B3231BBFAF00365194 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADAA27B2231BBFAF00365194 /* SceneDelegate.swift */; };
@@ -14,8 +15,6 @@
 		ADAA27B8231BBFAF00365194 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADAA27B6231BBFAF00365194 /* Main.storyboard */; };
 		ADAA27BA231BBFB300365194 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADAA27B9231BBFB300365194 /* Assets.xcassets */; };
 		ADAA27BD231BBFB300365194 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADAA27BB231BBFB300365194 /* LaunchScreen.storyboard */; };
-		ADAA27C6231BC02C00365194 /* light_background.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ADAA27C4231BC02B00365194 /* light_background.pdf */; };
-		ADAA27C7231BC02C00365194 /* dark_background.pdf in Resources */ = {isa = PBXBuildFile; fileRef = ADAA27C5231BC02B00365194 /* dark_background.pdf */; };
 		ADAA27CE231BC87F00365194 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = ADAA27CD231BC87F00365194 /* README.md */; };
 /* End PBXBuildFile section */
 
@@ -29,8 +28,6 @@
 		ADAA27B9231BBFB300365194 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADAA27BC231BBFB300365194 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ADAA27BE231BBFB300365194 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		ADAA27C4231BC02B00365194 /* light_background.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = light_background.pdf; sourceTree = "<group>"; };
-		ADAA27C5231BC02B00365194 /* dark_background.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = dark_background.pdf; sourceTree = "<group>"; };
 		ADAA27CD231BC87F00365194 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -39,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				036A8627236AF0590057E4AA /* SwiftyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,8 +71,6 @@
 				ADAA27B9231BBFB300365194 /* Assets.xcassets */,
 				ADAA27BB231BBFB300365194 /* LaunchScreen.storyboard */,
 				ADAA27BE231BBFB300365194 /* Info.plist */,
-				ADAA27C5231BC02B00365194 /* dark_background.pdf */,
-				ADAA27C4231BC02B00365194 /* light_background.pdf */,
 			);
 			path = Clima;
 			sourceTree = "<group>";
@@ -119,6 +115,9 @@
 			dependencies = (
 			);
 			name = Clima;
+			packageProductDependencies = (
+				036A8626236AF0590057E4AA /* SwiftyJSON */,
+			);
 			productName = Clima;
 			productReference = ADAA27AD231BBFAF00365194 /* Clima.app */;
 			productType = "com.apple.product-type.application";
@@ -147,6 +146,9 @@
 				Base,
 			);
 			mainGroup = ADAA27A4231BBFAF00365194;
+			packageReferences = (
+				036A8625236AF0590057E4AA /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
 			productRefGroup = ADAA27AE231BBFAF00365194 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -162,11 +164,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADAA27CE231BC87F00365194 /* README.md in Resources */,
-				ADAA27C7231BC02C00365194 /* dark_background.pdf in Resources */,
 				ADAA27BD231BBFB300365194 /* LaunchScreen.storyboard in Resources */,
 				ADAA27BA231BBFB300365194 /* Assets.xcassets in Resources */,
 				ADAA27B8231BBFAF00365194 /* Main.storyboard in Resources */,
-				ADAA27C6231BC02C00365194 /* light_background.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +378,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		036A8625236AF0590057E4AA /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		036A8626236AF0590057E4AA /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 036A8625236AF0590057E4AA /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ADAA27A5231BBFAF00365194 /* Project object */;
 }

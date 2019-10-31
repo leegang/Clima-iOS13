@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftyJSON
 
 
 struct WeatherManger {
@@ -36,7 +37,12 @@ struct WeatherManger {
         //Create a URL
         if let url = URL(string:urlString) {
             let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url)
+            let task = session.dataTask(with: url) { ( data, urlRespone, error) in
+                   if !(data == nil) && (error == nil)  {
+                    let weatherData = try?JSON(data:(data ?? nil)!)
+                    print(weatherData)
+                   }
+               }
             task.resume()
         }
     }    
