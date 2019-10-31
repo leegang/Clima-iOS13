@@ -18,13 +18,13 @@ class WeatherViewController: UIViewController,UITextFieldDelegate,WeatherManager
     @IBOutlet weak var searchTextField: UITextField!
     
     var climaToday = WeatherManger()
-    
     var city:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTextField.delegate = self
         climaToday.delegate = self
+        searchTextField.keyboardType = .webSearch
         // Do any additional setup after loading the view.
     }
     
@@ -64,7 +64,7 @@ class WeatherViewController: UIViewController,UITextFieldDelegate,WeatherManager
     }
     
     func didHandleError(error: Error) {
-        self.cityLabel.text = error as! String
+        self.cityLabel.text = error as? String
     }
 
 }
