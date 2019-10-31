@@ -8,36 +8,38 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController,UITextFieldDelegate {
+class WeatherViewController: UIViewController,UITextFieldDelegate,WeatherManagerDelegate {
+    
+    
 
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
     
-    let climaToday = WeatherManger()
+    var climaToday = WeatherManger()
+    
     var city:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchTextField.delegate = self
+        climaToday.delegate = self
         // Do any additional setup after loading the view.
     }
     
     @IBAction func searchButtonPressed(_ sender: UIButton) {
-//        cityLabel.text = searchTextField.text
         searchTextField.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-       
         searchTextField.endEditing(true)
         return true
     }
     
      func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
            if textField.text != "" {
-             cityLabel.text = searchTextField.text
+//             cityLabel.text = searchTextField.text
                return true
            } else {
                textField.placeholder = "Type something"
@@ -50,6 +52,13 @@ class WeatherViewController: UIViewController,UITextFieldDelegate {
             climaToday.getWeatherByCity(city:cityName)
         }
         searchTextField.text = ""
+    }
+    
+    
+    func didUpdateWeather(weather:WeatherData) {
+        temperatureLabel.text = weather.getTempCText()
+        conditionImageView.image = weather.getWeatherImage()
+        cityLabel.text = weather.cityName
     }
 
 }

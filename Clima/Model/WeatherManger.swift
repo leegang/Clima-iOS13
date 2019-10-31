@@ -8,6 +8,11 @@
 
 import Foundation
 import SwiftyJSON
+import UIKit
+
+protocol WeatherManagerDelegate {
+    func didUpdateWeather(weather:WeatherData)
+}
 
 
 struct WeatherManger {
@@ -16,13 +21,15 @@ struct WeatherManger {
     var conditionID:Int?
     let defaultSession = URLSession(configuration: .default)
     
+    var delegate:WeatherManagerDelegate?
+    
     let apiKey = "e2f482f1b98910e0e9ce5638fad56871"
     let basicUrl = "http://api.openweathermap.org/data/2.5/weather"
 //
     
     func getWeatherByCity(city:String) {
         let urlString  = "\(basicUrl)?APPID=\(apiKey)&q=\(String(describing: city))"
-        print(urlString)
+//        print(urlString)
         self.getWeatcherData(urlString:urlString)
 
     }
@@ -46,7 +53,8 @@ struct WeatherManger {
                     return
                 }
                 if let weatherData = data {
-                    self.parseData(weatherData)
+                    if let weatherValue = self.parseData(weatherData)
+                    {self.delegate?.didUpdateWeather(weather: weatherValue)}
                }
             }
             task.resume()
@@ -54,17 +62,21 @@ struct WeatherManger {
         }
     
     
-    func parseData(_ weatherData:Data){
+    func parseData(_ weatherData:Data) -> WeatherData? {
         do {
             let weatherDataJson = try JSON(data: weatherData)
-            let temp = weatherDataJson["main","temp"].double!
-            let cod = weatherDataJson["weather",0,"id"].int!
-            let cityName = weatherDataJson["name"].string!
-            let weatherDatavalue = WeatherData(temp: temp,cityName:cityName,cod:cod)
-        
+            let temp = weatherDataJson["main","temp"].double
+            let cod = weatherDataJson["weather",0,"id"].int
+            let cityName = weatherDataJson["name"].string
+            let weatherDatavalue = WeatherData(temp: temp!,cityName:cityName!,cod:cod!)
+            return weatherDatavalue
+            
+//
+//
         }
         catch{
             print(error)
+            return nil
         }
        
     }

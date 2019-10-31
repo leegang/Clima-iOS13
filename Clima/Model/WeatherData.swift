@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct WeatherData {
     let temp:Double
@@ -17,36 +18,37 @@ struct WeatherData {
         self.temp = temp
         self.cityName = cityName
         self.cod = cod
-        
+    }
+    
+    var wetherName:String{
+        switch cod {
+               case 200...232:
+                   return  "cloud.bolt"
+               case 300...321:
+                   return "cloud.drizzle"
+               case 500...531:
+                   return "cloud.rain"
+               case 600...622:
+                   return "cloud.snow"
+               case 701...781:
+                   return "cloud.fog"
+               case 800:
+                   return "sun.max"
+               case 801...804:
+                   return "cloud.bolt"
+               default:
+                   return  "cloud"
+               }
     }
     
     func getTempCText() ->String {
         let tempC =  (temp - 32) / 1.8
-        let cText = String(format: "%.1f", tempC)
+        let cText = String(format: "%.1f ℃", tempC)
         return cText
     }
     
     
-    func getWeatherImage() -> String {
-//        function body
-        switch cod {
-        case 200...232:
-            return "cloud.bolt"
-        case 300...321:
-            return "cloud.drizzle"
-        case 500...531:
-            return "cloud.rain"
-        case 600...622:
-            return "cloud.snow"
-        case 701...781:
-            return "cloud.fog"
-        case 800:
-            return "sun.max"
-        case 801...804:
-            return "cloud.bolt"
-        default:
-            return "cloud"
-        }
-
+    func getWeatherImage() -> UIImage {
+        return UIImage(systemName:wetherName)!
     }
 }
