@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherViewController: UIViewController {
     
@@ -14,19 +15,41 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
+    let locationManager = CLLocationManager()
     
+
     var climaToday = WeatherManger()
     var city:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchTextField.keyboardType = .webSearch
+        locationManager.requestWhenInUseAuthorization()
+        updateLocation()
         searchTextField.delegate = self
         climaToday.delegate = self
-        searchTextField.keyboardType = .webSearch
+        locationManager.delegate = self
+        
+        
+        }
+    
+    @IBAction func locationButtonPressed(_ sender: UIButton) {
+        updateLocation()
+    }
+    
+    
+    func updateLocation()  {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.requestLocation()
+        }
+    }
         // Do any additional setup after loading the view.
     }
-}
 
+
+// Mark: -UITextFieldDelegate
 extension WeatherViewController:UITextFieldDelegate{
 
         @IBAction func searchButtonPressed(_ sender: UIButton) {
@@ -56,7 +79,8 @@ extension WeatherViewController:UITextFieldDelegate{
         }
 }
     
-    
+// Mark: -WeatherManagerDelegate
+
 extension WeatherViewController:WeatherManagerDelegate{
         func didUpdateWeather(weather:WeatherData) {
                DispatchQueue.main.async{
@@ -71,6 +95,27 @@ extension WeatherViewController:WeatherManagerDelegate{
            }
 
 }
+
+
+//Mark: -CLLocationManagerDelegate
+
+extension WeatherViewController:CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+//        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        climaToday.getWeatherByCoordinates(lat: locValue.latitude, lon: locValue.longitude)
+    }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    
+}
+    
+    
+
+
+
 
 
