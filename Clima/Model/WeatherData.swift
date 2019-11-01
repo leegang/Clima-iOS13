@@ -42,8 +42,8 @@ struct WeatherData {
     }
     
     func getTempCText() ->String {
-        let tempC =  ((temp - 32) / 1.8)
-        let cText = String(format: "%.0f", tempC)
+        let tempC =  (temp - 32)/18
+        let cText = String(format: "%.f", tempC)
         return cText
     }
     

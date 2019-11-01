@@ -30,7 +30,7 @@ struct WeatherManger {
     
     func getWeatherByCity(city:String) {
         let urlString  = "\(basicUrl)?APPID=\(apiKey)&q=\(String(describing: city))"
-//        print(urlString)
+        print(urlString)
         self.getWeatcherData(urlString:urlString)
 
     }
